@@ -14,5 +14,9 @@
             "ping_check": 30,
             "speed_test": 1800
         }
+    },
+    "webserver": {
+        "host": "localhost",
+        "port": 8088
     }
 }

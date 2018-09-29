@@ -2,12 +2,13 @@
 
 import net_monitor
 import tester_mongo
+from statspage import server
 
 import json
 import datetime
+import threading
 
-def start_monitoring(conf_file):
-    conf = json.load(conf_file)
+def start_monitoring(conf):
     mongoconf = conf["mongo"]
     targetconf = conf["tests"]["targets"]
     timeconf = conf["tests"]["time_deltas"]
@@ -27,5 +28,9 @@ def start_monitoring(conf_file):
     m.start_monitoring()
 
 if __name__ == "__main__":
-    with open("./lain.json") as conf:
-        start_monitoring(conf)
+    with open("./lain.json") as conf_file:
+        conf = json.load(conf_file)
+        t = threading.Thread(target=start_monitoring, args=[conf])
+        t.daemon = True
+        t.start()
+        server.start_server(conf)
