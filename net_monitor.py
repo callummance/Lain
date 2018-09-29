@@ -32,16 +32,19 @@ class NetMonitor:
                 time.sleep(1)
                 
     def run_pingcheck(self):
-        t = threading.Thread(target = self.tester.run_pingcheck)
+        now = datetime.datetime.now()
+        t = threading.Thread(target = self.tester.run_pingcheck, name=f"Pingcheck-{now}")
         t.daemon = True
         t.start()
 
     def run_gatewaycheck(self):
-        t = threading.Thread(target = self.tester.run_gatewaycheck)
+        now = datetime.datetime.now()
+        t = threading.Thread(target = self.tester.run_gatewaycheck, name=f"Gatewaycheck-{now}")
         t.daemon = True
         t.start()
 
     def run_speedcheck(self):
-        t = threading.Thread(target = self.tester.run_speedtest)
+        now = datetime.datetime.now()
+        t = threading.Thread(target = self.tester.run_speedtest, name=f"Speedtest-{now}")
         t.daemon = True
         t.start()
