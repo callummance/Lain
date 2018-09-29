@@ -1,4 +1,4 @@
-#!/dev/python3
+#!/usr/bin/env python3
 
 import net_monitor
 import tester_mongo
