@@ -1,0 +1,18 @@
+{
+    "mongo": {
+        "address": "mongodb://192.168.1.101:27017",
+        "db": "lain"
+    },
+    "tests": {
+        "targets":{
+            "gateway_ip": "192.168.1.254",
+            "ping_target": "8.8.8.8",
+            "speedtest_servers": []
+        },
+        "time_deltas": {
+            "gateway_check": 10,
+            "ping_check": 30,
+            "speed_test": 1800
+        }
+    }
+}
