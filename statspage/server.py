@@ -1,4 +1,4 @@
-from bottle import request, Bottle, template, run, install, JSONPlugin
+from bottle import request, Bottle, template, run, install, JSONPlugin, static_file
 import json
 from bson import json_util
 
@@ -23,6 +23,14 @@ def get_pingchecks():
 @app.route("/api/gatewaytests.json")
 def get_gatewaychecks():
     return data_source.gatewaytest_data(app.config["mongo"])
+
+@app.route("/")
+def get_root():
+    return static_file("index.html", root="statspage/static")
+
+@app.route("/static/<filename:path>")
+def get_static(filename):
+    return static_file(filename, root="statspage/static")
 
 def start_server(config):
     app.config["mongo"] = config["mongo"]
