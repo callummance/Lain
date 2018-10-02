@@ -26,7 +26,9 @@ class Tester:
         self.s.upload(pre_allocate=False)
         res = self.s.results.dict()
         server = res["server"]
-        time = datetime.datetime.strptime(res["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        #speedtest-cli's timestamp seems to return the same thing every time (?!) so use python's built in timestamp.
+        #time = datetime.datetime.strptime(res["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        time = datetime.datetime.utcnow()
         self.write_speedtest(res["download"], res["upload"], res["ping"], server["url"], server["name"], time)
 
     def write_gatewaycheck(self, is_online, time):
