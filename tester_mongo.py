@@ -35,3 +35,12 @@ class MongoTester(net_tester.Tester):
             "servername": servername
             }
         col.insert_one(newdict)
+
+    def write_failedpingcheck(self, time):
+        col = self.db["pingchecks"]
+        newdict = {
+            "time": time,
+            "is_success": False,
+            "mean_ping": -1
+            }
+        col.insert_one(newdict)

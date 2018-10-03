@@ -12,8 +12,11 @@ class Tester:
 
     def run_pingcheck(self):
         now = datetime.datetime.utcnow()
-        res = sys_ping.run_pingcheck(self.ping_ip)
-        self.write_pingcheck(res["success"], res["mean_ping"], now)
+        if res["success"]:
+            res = sys_ping.run_pingcheck(self.ping_ip)
+            self.write_pingcheck(res["success"], res["mean_ping"], now)
+        else:
+            self.write_failedpingcheck(now)
 
     def run_gatewaycheck(self):
         now = datetime.datetime.utcnow()
@@ -40,6 +43,9 @@ class Tester:
     def write_speedtest(self, download, upload, ping, serverurl, servername, time):
         pass
 
+    def write_failedpingcheck(self, time):
+        pass
+
 class PrintTester(Tester):
     def write_gatewaycheck(self, is_online, time):
         print (f"Gateway check produced status {str(is_online)} at time {str(time)}\n")
@@ -47,3 +53,5 @@ class PrintTester(Tester):
         print (f"Ping check produced status {str(is_success)} at time {str(time)}, with a latency of {str(mean_ping)}\n")
     def write_speedtest(self, download, upload, ping, serverurl, servername, time):
         print (f"Speedtest ran with download of {download}, upload of {upload} and ping of {ping} with the server {servername} at {serverurl}, at time {time}.\n")
+    def write_failedpingcheck(self, time):
+        self.write_pingcheck(self, False, "Invalid", time)
